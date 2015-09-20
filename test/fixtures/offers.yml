@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  datetime: 2015-09-20 14:19:38
+  pickUpPoint: MyString
+  dropOffPoint: MyString
+  vacancies: 1
+  car_id: 
+
+two:
+  datetime: 2015-09-20 14:19:38
+  pickUpPoint: MyString
+  dropOffPoint: MyString
+  vacancies: 1
+  car_id: 

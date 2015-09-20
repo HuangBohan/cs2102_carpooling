@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Datetime:</strong>
+  <%= @offer.datetime %>
+</p>
+
+<p>
+  <strong>Pickuppoint:</strong>
+  <%= @offer.pickUpPoint %>
+</p>
+
+<p>
+  <strong>Dropoffpoint:</strong>
+  <%= @offer.dropOffPoint %>
+</p>
+
+<p>
+  <strong>Vacancies:</strong>
+  <%= @offer.vacancies %>
+</p>
+
+<p>
+  <strong>Car:</strong>
+  <%= @offer.car %>
+</p>
+
+<%= link_to 'Edit', edit_offer_path(@offer) %> |
+<%= link_to 'Back', offers_path %>
