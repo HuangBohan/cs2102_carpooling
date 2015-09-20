@@ -36,9 +36,12 @@ ActiveRecord::Schema.define(version: 20150920063240) do
   create_table "requests", force: :cascade do |t|
     t.integer  "requester_id", null: false
     t.integer  "status"
+    t.integer  "offer_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  add_index "requests", ["offer_id"], name: "index_requests_on_offer_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
