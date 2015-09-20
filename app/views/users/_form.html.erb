@@ -1,4 +1,4 @@
-<%= form_for(@user) do |f| %>
+<%= simple_form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -10,20 +10,8 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :isAdmin %><br>
-    <%= f.check_box :isAdmin %>
-  </div>
-  <div class="field">
-    <%= f.label :credits %><br>
-    <%= f.number_field :credits %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.input :name %>
+  <%= f.input :isAdmin %>
+  <%= f.input :credits %>
+  <%= f.submit %>
 <% end %>
