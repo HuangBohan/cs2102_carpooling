@@ -4,7 +4,11 @@ class CarsController < ApplicationController
   # GET /cars
   # GET /cars.json
   def index
-    @cars = Car.where(owner_id: current_user.id)
+    if current_user.is_admin?
+      @cars = Car.all
+    else
+      @cars = Car.where(owner_id: current_user.id)
+    end
   end
 
   # GET /cars/1
