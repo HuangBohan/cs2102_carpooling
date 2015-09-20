@@ -11,8 +11,8 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @car.user %>
+  <strong>Owner:</strong>
+  <%= @car.owner.name %>
 </p>
 
 <%= link_to 'Edit', edit_car_path(@car) %> |
