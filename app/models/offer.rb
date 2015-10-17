@@ -1,5 +1,6 @@
 class Offer < ActiveRecord::Base
-  belongs_to :car
+  self.primary_keys = :datetime, :car_license_plate_number
+  belongs_to :car, foreign_key: :car_license_plate_number
   has_many :requests, dependent: :destroy
 
   validate :valid_number_of_vacancies

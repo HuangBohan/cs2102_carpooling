@@ -7,23 +7,23 @@ class CreateTables < ActiveRecord::Migration
         `owner_id` int(11) NOT NULL,
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
-        `license_plate_number` varchar(255) COLLATE utf8_unicode_ci UNIQUE NOT NULL,
+        `license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         PRIMARY KEY (`license_plate_number`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
       SQL
 
     execute <<-SQL
       CREATE TABLE `offers` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `datetime` datetime DEFAULT NULL,
+        `datetime` datetime NOT NULL DEFAULT NOW(),
         `pickUpPoint` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `dropOffPoint` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `vacancies` int(11) DEFAULT NULL,
-        `car_id` int(11) DEFAULT NULL,
+        `car_license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
-        PRIMARY KEY (`id`),
-        KEY `index_offers_on_car_id` (`car_id`)
+        PRIMARY KEY (`datetime`, `car_license_plate_number`),
+        FOREIGN KEY (`car_license_plate_number`) REFERENCES `cars`(`license_plate_number`),
+        KEY `index_offers_on_car_license_plate_number` (`car_license_plate_number`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
     SQL
 

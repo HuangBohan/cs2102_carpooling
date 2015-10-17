@@ -21,19 +21,17 @@ ActiveRecord::Schema.define(version: 20150920061501) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "cars", ["license_plate_number"], name: "license_plate_number", unique: true, using: :btree
-
-  create_table "offers", force: :cascade do |t|
-    t.datetime "datetime"
-    t.string   "pickUpPoint",  limit: 255
-    t.string   "dropOffPoint", limit: 255
-    t.integer  "vacancies",    limit: 4
-    t.integer  "car_id",       limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+  create_table "offers", id: false, force: :cascade do |t|
+    t.datetime "datetime",                             null: false
+    t.string   "pickUpPoint",              limit: 255
+    t.string   "dropOffPoint",             limit: 255
+    t.integer  "vacancies",                limit: 4
+    t.string   "car_license_plate_number", limit: 255, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
-  add_index "offers", ["car_id"], name: "index_offers_on_car_id", using: :btree
+  add_index "offers", ["car_license_plate_number"], name: "index_offers_on_car_license_plate_number", using: :btree
 
   create_table "requests", force: :cascade do |t|
     t.integer  "requester_id", limit: 4, null: false
@@ -66,4 +64,5 @@ ActiveRecord::Schema.define(version: 20150920061501) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "offers", "cars", column: "car_license_plate_number", primary_key: "license_plate_number", name: "offers_ibfk_1"
 end
