@@ -15,6 +15,7 @@ class RequestsController < ApplicationController
   # GET /requests/new
   def new
     @request = Request.new
+    @request.requester_email = current_user.email
   end
 
   # GET /requests/1/edit
@@ -69,6 +70,6 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:requester_id, :status, :offer_id)
+      params.require(:request).permit(:status, :offer_datetime, :offer_car_license_plate_number)
     end
 end
