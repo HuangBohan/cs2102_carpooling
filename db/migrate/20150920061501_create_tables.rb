@@ -22,7 +22,8 @@ class CreateTables < ActiveRecord::Migration
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
         PRIMARY KEY (`datetime`, `car_license_plate_number`),
-        FOREIGN KEY (`car_license_plate_number`) REFERENCES `cars`(`license_plate_number`),
+        FOREIGN KEY (`car_license_plate_number`) REFERENCES `cars`(`license_plate_number`)
+        ON DELETE CASCADE ON UPDATE CASCADE,
         KEY `index_offers_on_car_license_plate_number` (`car_license_plate_number`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
     SQL
