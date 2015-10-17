@@ -1,6 +1,7 @@
 class Request < ActiveRecord::Base
-  belongs_to :requester, class_name: :User
-  belongs_to :offer
+  self.primary_keys = :offer_datetime, :offer_car_license_plate_number, :requester_email
+  belongs_to :requester, class_name: :User, foreign_key: :requester_email
+  belongs_to :offer, foreign_key: [:offer_datetime, :offer_car_license_plate_number]
   validate :at_least_one_seat
 
   private
