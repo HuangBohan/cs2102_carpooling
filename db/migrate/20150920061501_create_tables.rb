@@ -43,7 +43,6 @@ class CreateTables < ActiveRecord::Migration
 
     execute <<-SQL
       CREATE TABLE `users` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
         `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `isAdmin` tinyint(1) DEFAULT NULL,
         `credits` int(11) DEFAULT NULL,
@@ -59,7 +58,7 @@ class CreateTables < ActiveRecord::Migration
         `last_sign_in_at` datetime DEFAULT NULL,
         `current_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `last_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-        PRIMARY KEY (`id`),
+        PRIMARY KEY (`email`),
         UNIQUE KEY `index_users_on_email` (`email`),
         UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
