@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150920061501) do
   add_index "cars", ["owner_email"], name: "owner_email", using: :btree
 
   create_table "offers", id: false, force: :cascade do |t|
-    t.datetime "datetime",                             null: false
+    t.datetime "date_time",                            null: false
     t.string   "pickUpPoint",              limit: 255
     t.string   "dropOffPoint",             limit: 255
     t.integer  "vacancies",                limit: 4
@@ -38,13 +38,14 @@ ActiveRecord::Schema.define(version: 20150920061501) do
   create_table "requests", id: false, force: :cascade do |t|
     t.string   "requester_email",                limit: 255, null: false
     t.integer  "status",                         limit: 4
-    t.datetime "offer_datetime",                             null: false
+    t.datetime "offer_date_time",                            null: false
     t.string   "offer_car_license_plate_number", limit: 255, null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
 
-  add_index "requests", ["offer_datetime", "offer_car_license_plate_number"], name: "index_requests_on_offer_details", using: :btree
+  add_index "requests", ["offer_car_license_plate_number"], name: "offer_car_license_plate_number", using: :btree
+  add_index "requests", ["offer_date_time", "offer_car_license_plate_number"], name: "index_requests_on_offer_details", using: :btree
 
   create_table "users", primary_key: "email", force: :cascade do |t|
     t.string   "name",                   limit: 255
@@ -68,5 +69,6 @@ ActiveRecord::Schema.define(version: 20150920061501) do
 
   add_foreign_key "cars", "users", column: "owner_email", primary_key: "email", name: "cars_ibfk_1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "offers", "cars", column: "car_license_plate_number", primary_key: "license_plate_number", name: "offers_ibfk_1", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "requests", "offers", column: "offer_car_license_plate_number", primary_key: "car_license_plate_number", name: "requests_ibfk_2", on_update: :cascade, on_delete: :cascade
   add_foreign_key "requests", "users", column: "requester_email", primary_key: "email", name: "requests_ibfk_1", on_update: :cascade, on_delete: :cascade
 end
