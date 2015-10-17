@@ -40,14 +40,14 @@ class CreateTables < ActiveRecord::Migration
 
     execute <<-SQL
       CREATE TABLE `offers` (
-        `date_time` datetime NOT NULL DEFAULT NOW(),
+        `datetime` datetime NOT NULL DEFAULT NOW(),
         `pickUpPoint` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `dropOffPoint` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `vacancies` int(11) DEFAULT NULL,
         `car_license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
-        PRIMARY KEY (`date_time`, `car_license_plate_number`),
+        PRIMARY KEY (`datetime`, `car_license_plate_number`),
         FOREIGN KEY (`car_license_plate_number`) REFERENCES `cars`(`license_plate_number`)
         ON DELETE CASCADE ON UPDATE CASCADE,
         KEY `index_offers_on_car_license_plate_number` (`car_license_plate_number`)
@@ -58,17 +58,17 @@ class CreateTables < ActiveRecord::Migration
       CREATE TABLE `requests` (
         `requester_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         `status` int(11) DEFAULT NULL,
-        `offer_date_time` datetime NOT NULL DEFAULT NOW(),
+        `offer_datetime` datetime NOT NULL DEFAULT NOW(),
         `offer_car_license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
-        PRIMARY KEY (`requester_email`, `offer_date_time`, `offer_car_license_plate_number`),
+        PRIMARY KEY (`requester_email`, `offer_datetime`, `offer_car_license_plate_number`),
         FOREIGN KEY (`requester_email`) REFERENCES `users`(`email`)
         ON DELETE CASCADE ON UPDATE CASCADE,
         FOREIGN KEY (`offer_car_license_plate_number`)
         REFERENCES `offers`(`car_license_plate_number`)
         ON DELETE CASCADE ON UPDATE CASCADE,
-        KEY `index_requests_on_offer_details` (`offer_date_time`, `offer_car_license_plate_number`)
+        KEY `index_requests_on_offer_details` (`offer_datetime`, `offer_car_license_plate_number`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
     SQL
   end
