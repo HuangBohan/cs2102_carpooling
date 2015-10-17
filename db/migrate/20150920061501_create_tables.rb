@@ -4,7 +4,7 @@ class CreateTables < ActiveRecord::Migration
       CREATE TABLE `cars` (
         `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `seats` int(11) DEFAULT NULL,
-        `owner_id` int(11) NOT NULL,
+        `owner_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
         `license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,

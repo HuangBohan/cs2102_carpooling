@@ -7,7 +7,7 @@ class CarsController < ApplicationController
     if current_user.isAdmin?
       @cars = Car.all
     else
-      @cars = Car.where(owner_id: current_user.id)
+      @cars = Car.where(owner_email: current_user.email)
     end
   end
 
@@ -29,7 +29,7 @@ class CarsController < ApplicationController
   # POST /cars.json
   def create
     @car = Car.new(car_params)
-    @car.owner_id = current_user.id
+    @car.owner_email = current_user.email
 
     respond_to do |format|
       if @car.save

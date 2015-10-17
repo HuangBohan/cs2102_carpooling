@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(version: 20150920061501) do
 
   create_table "cars", primary_key: "license_plate_number", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "seats",      limit: 4
-    t.integer  "owner_id",   limit: 4,   null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",        limit: 255
+    t.integer  "seats",       limit: 4
+    t.string   "owner_email", limit: 255, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "offers", id: false, force: :cascade do |t|
