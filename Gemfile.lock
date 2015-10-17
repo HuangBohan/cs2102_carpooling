@@ -58,6 +58,8 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     commonjs (0.2.7)
+    composite_primary_keys (8.1.1)
+      activerecord (~> 4.2.0)
     devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -168,6 +170,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
+  composite_primary_keys
   devise
   jbuilder (~> 2.0)
   jquery-rails
