@@ -13,14 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20150920061501) do
 
-  create_table "cars", force: :cascade do |t|
-    t.string   "name",                 limit: 255
-    t.integer  "seats",                limit: 4
-    t.integer  "owner_id",             limit: 4,   null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "license_plate_number", limit: 255
+  create_table "cars", primary_key: "license_plate_number", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "seats",      limit: 4
+    t.integer  "owner_id",   limit: 4,   null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
+
+  add_index "cars", ["license_plate_number"], name: "license_plate_number", unique: true, using: :btree
 
   create_table "offers", force: :cascade do |t|
     t.datetime "datetime"

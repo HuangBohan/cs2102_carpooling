@@ -69,11 +69,11 @@ class CarsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_car
-      @car = Car.find(params[:id])
+      @car = Car.find_by_license_plate_number(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def car_params
-      params.require(:car).permit(:name, :seats, :owner_id)
+      params.require(:car).permit(:name, :seats, :owner_id, :license_plate_number)
     end
 end
