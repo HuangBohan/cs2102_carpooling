@@ -21,7 +21,7 @@
         <td><%= offer.pickUpPoint %></td>
         <td><%= offer.dropOffPoint %></td>
         <td><%= offer.vacancies %></td>
-        <td><%= offer.car %></td>
+        <td><%= offer.car.name %></td>
         <td><%= link_to 'Show', offer %></td>
         <td><%= link_to 'Edit', edit_offer_path(offer) %></td>
         <td><%= link_to 'Destroy', offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
