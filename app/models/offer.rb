@@ -1,5 +1,5 @@
 class Offer < ActiveRecord::Base
-  self.primary_keys = :date_time, :car_license_plate_number
+  self.primary_keys = :datetime, :car_license_plate_number
   belongs_to :car, foreign_key: :car_license_plate_number
   has_many :requests, dependent: :destroy
 
@@ -11,6 +11,6 @@ class Offer < ActiveRecord::Base
   end
 
   def to_sym
-    "#{license_plate_number} | #{date_time}"
+    "#{license_plate_number} | #{datetime}"
   end
 end

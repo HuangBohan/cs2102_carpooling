@@ -10,10 +10,10 @@
       </ul>
     </div>
   <% end %>
-  <%= f.input :date_time %>
+  <%= f.input :datetime %>
   <%= f.input :pickUpPoint %>
   <%= f.input :dropOffPoint %>
   <%= f.input :vacancies %>
-  <%= f.association :car, collection: Car.where(owner_username: current_userusername) %>
+  <%= f.association :car, collection: Car.where(owner_username: current_user.username) %>
   <%= f.submit %>
 <% end %>

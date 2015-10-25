@@ -15,7 +15,7 @@
   <tbody>
     <% @requests.each do |request| %>
       <tr>
-        <td><%= request.requester.name %></td>
+        <td><%= request.requester.username %></td>
         <td><%= request.status %></td>
         <td><%= request.offer %></td>
         <td><%= link_to 'Show', request %></td>

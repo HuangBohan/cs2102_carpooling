@@ -63,7 +63,7 @@ class RequestsController < ApplicationController
   end
 
   def approve
-    @request.update_attribute(status: true)
+    @request.update_attribute(:status, true)
     redirect_to offers_path
   end
 

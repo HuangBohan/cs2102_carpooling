@@ -64,7 +64,7 @@ class OffersController < ApplicationController
   def request_offer
     @request = Request.new
     @request.requester_username = current_user.username
-    @request.offer_date_time = @offer.date_time
+    @request.offer_datetime = @offer.datetime
     @request.offer_car_license_plate_number = @offer.car_license_plate_number
     @request.save
     respond_to :js
@@ -78,7 +78,7 @@ class OffersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def offer_params
-      params.require(:offer).permit(:date_time,
+      params.require(:offer).permit(:datetime,
                                     :pickUpPoint, :dropOffPoint, :vacancies, :car_license_plate_number)
     end
 end
