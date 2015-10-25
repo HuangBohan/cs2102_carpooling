@@ -13,4 +13,18 @@ class User < ActiveRecord::Base
   def email_changed?
     false
   end
+
+  def self.new_user(params)
+    username = ActiveRecord::Base::sanitize(params[:username])
+    password = ActiveRecord::Base::sanitize(params[:password])
+    isAdmin = ActiveRecord::Base::sanitize(params[:isAdmin])
+    sql = "INSERT INTO users (username, password, isAdmin) VALUES (#{username}, #{password}, #{isAdmin});"
+    ActiveRecord::Base.connection.execute sql
+    params[:username]
+  end
+
+  def self.get_user(username)
+    sql = "SELECT * FROM users WHERE username='#{username}'"
+    User.find_by_sql(sql)
+  end
 end

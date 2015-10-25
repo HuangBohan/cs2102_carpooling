@@ -7,7 +7,7 @@ class CarsController < ApplicationController
     if current_user.isAdmin?
       @cars = Car.all
     else
-      @cars = Car.where(owner_username: current_user.username)
+      @cars = Car.get_user_cars(current_user.username)
     end
   end
 
@@ -28,8 +28,8 @@ class CarsController < ApplicationController
   # POST /cars
   # POST /cars.json
   def create
-    @car = Car.new(car_params)
-    @car.owner_username = current_user.username
+    new_car = Car.new_car(car_params)
+    @car = Car.get_car(new_car)
 
     respond_to do |format|
       if @car.save
@@ -46,7 +46,7 @@ class CarsController < ApplicationController
   # PATCH/PUT /cars/1.json
   def update
     respond_to do |format|
-      if @car.update(car_params)
+      if Car.update_car(car_params, params[:id])
         format.html { redirect_to @car, notice: 'Car was successfully updated.' }
         format.json { render :show, status: :ok, location: @car }
       else
@@ -59,7 +59,7 @@ class CarsController < ApplicationController
   # DELETE /cars/1
   # DELETE /cars/1.json
   def destroy
-    @car.destroy
+    Car.destroy_car(params[:id])
     respond_to do |format|
       format.html { redirect_to cars_url, notice: 'Car was successfully destroyed.' }
       format.json { head :no_content }
@@ -69,11 +69,12 @@ class CarsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_car
-      @car = Car.find_by_license_plate_number(params[:id])
+      @car = Car.get_car(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def car_params
+      params[:car][:owner_username] = current_user.username
       params.require(:car).permit(:name, :seats, :owner_username, :license_plate_number)
     end
 end

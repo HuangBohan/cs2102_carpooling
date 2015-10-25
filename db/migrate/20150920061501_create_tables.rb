@@ -6,8 +6,6 @@ class CreateTables < ActiveRecord::Migration
         `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
         `isAdmin` tinyint(1) DEFAULT NULL,
         `credits` int(11) DEFAULT 50,
-        `created_at` datetime NOT NULL,
-        `updated_at` datetime NOT NULL,
         `encrypted_password` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
         `reset_password_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `reset_password_sent_at` datetime DEFAULT NULL,
@@ -28,8 +26,6 @@ class CreateTables < ActiveRecord::Migration
         `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `seats` int(11) DEFAULT NULL,
         `owner_username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-        `created_at` datetime NOT NULL,
-        `updated_at` datetime NOT NULL,
         `license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         FOREIGN KEY (`owner_username`) REFERENCES `users`(`username`)
         ON DELETE CASCADE ON UPDATE CASCADE,
@@ -45,8 +41,6 @@ class CreateTables < ActiveRecord::Migration
         `cost` int(11) DEFAULT 0,
         `vacancies` int(11) DEFAULT NULL,
         `car_license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-        `created_at` datetime NOT NULL,
-        `updated_at` datetime NOT NULL,
         PRIMARY KEY (`datetime`, `car_license_plate_number`),
         FOREIGN KEY (`car_license_plate_number`) REFERENCES `cars`(`license_plate_number`)
         ON DELETE CASCADE ON UPDATE CASCADE,
@@ -60,8 +54,6 @@ class CreateTables < ActiveRecord::Migration
         `status` tinyint(1) DEFAULT NULL,
         `offer_datetime` datetime NOT NULL DEFAULT NOW(),
         `offer_car_license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-        `created_at` datetime NOT NULL,
-        `updated_at` datetime NOT NULL,
         PRIMARY KEY (`requester_username`, `offer_datetime`, `offer_car_license_plate_number`),
         FOREIGN KEY (`requester_username`) REFERENCES `users`(`username`)
         ON DELETE CASCADE ON UPDATE CASCADE,

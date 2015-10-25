@@ -14,11 +14,9 @@
 ActiveRecord::Schema.define(version: 20150920061501) do
 
   create_table "cars", primary_key: "license_plate_number", force: :cascade do |t|
-    t.string   "name",           limit: 255
-    t.integer  "seats",          limit: 4
-    t.string   "owner_username", limit: 255, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string  "name",           limit: 255
+    t.integer "seats",          limit: 4
+    t.string  "owner_username", limit: 255, null: false
   end
 
   add_index "cars", ["owner_username"], name: "owner_username", using: :btree
@@ -30,8 +28,6 @@ ActiveRecord::Schema.define(version: 20150920061501) do
     t.integer  "cost",                     limit: 4,   default: 0
     t.integer  "vacancies",                limit: 4
     t.string   "car_license_plate_number", limit: 255,             null: false
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
   end
 
   add_index "offers", ["car_license_plate_number"], name: "index_offers_on_car_license_plate_number", using: :btree
@@ -41,8 +37,6 @@ ActiveRecord::Schema.define(version: 20150920061501) do
     t.boolean  "status",                         limit: 1
     t.datetime "offer_datetime",                             null: false
     t.string   "offer_car_license_plate_number", limit: 255, null: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
   end
 
   add_index "requests", ["offer_car_license_plate_number"], name: "offer_car_license_plate_number", using: :btree
@@ -51,8 +45,6 @@ ActiveRecord::Schema.define(version: 20150920061501) do
   create_table "users", primary_key: "username", force: :cascade do |t|
     t.boolean  "isAdmin",                limit: 1
     t.integer  "credits",                limit: 4,   default: 50
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
