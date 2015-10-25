@@ -15,5 +15,5 @@
   <%= @request.offer %>
 </p>
 
-<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Approve', approve_request_path(@request), method: :post %> |
 <%= link_to 'Back', requests_path %>

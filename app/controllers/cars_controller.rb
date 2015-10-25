@@ -7,7 +7,7 @@ class CarsController < ApplicationController
     if current_user.isAdmin?
       @cars = Car.all
     else
-      @cars = Car.where(owner_email: current_user.email)
+      @cars = Car.where(owner_username: current_user.username)
     end
   end
 
@@ -29,7 +29,7 @@ class CarsController < ApplicationController
   # POST /cars.json
   def create
     @car = Car.new(car_params)
-    @car.owner_email = current_user.email
+    @car.owner_username = current_user.username
 
     respond_to do |format|
       if @car.save
@@ -74,6 +74,6 @@ class CarsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def car_params
-      params.require(:car).permit(:name, :seats, :owner_id, :license_plate_number)
+      params.require(:car).permit(:name, :seats, :owner_username, :license_plate_number)
     end
 end

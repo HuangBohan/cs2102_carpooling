@@ -63,7 +63,7 @@ class OffersController < ApplicationController
 
   def request_offer
     @request = Request.new
-    @request.requester_email = current_user.email
+    @request.requester_username = current_user.username
     @request.offer_date_time = @offer.date_time
     @request.offer_car_license_plate_number = @offer.car_license_plate_number
     @request.save

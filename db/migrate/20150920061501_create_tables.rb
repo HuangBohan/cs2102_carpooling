@@ -3,12 +3,11 @@ class CreateTables < ActiveRecord::Migration
 
     execute <<-SQL
       CREATE TABLE `users` (
-        `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+        `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
         `isAdmin` tinyint(1) DEFAULT NULL,
-        `credits` int(11) DEFAULT NULL,
+        `credits` int(11) DEFAULT 50,
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
-        `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
         `encrypted_password` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
         `reset_password_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `reset_password_sent_at` datetime DEFAULT NULL,
@@ -18,8 +17,8 @@ class CreateTables < ActiveRecord::Migration
         `last_sign_in_at` datetime DEFAULT NULL,
         `current_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `last_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-        PRIMARY KEY (`email`),
-        UNIQUE KEY `index_users_on_email` (`email`),
+        PRIMARY KEY (`username`),
+        UNIQUE KEY `index_users_on_username` (`username`),
         UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
     SQL
@@ -28,11 +27,11 @@ class CreateTables < ActiveRecord::Migration
       CREATE TABLE `cars` (
         `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `seats` int(11) DEFAULT NULL,
-        `owner_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+        `owner_username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
         `license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-        FOREIGN KEY (`owner_email`) REFERENCES `users`(`email`)
+        FOREIGN KEY (`owner_username`) REFERENCES `users`(`username`)
         ON DELETE CASCADE ON UPDATE CASCADE,
         PRIMARY KEY (`license_plate_number`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -56,14 +55,14 @@ class CreateTables < ActiveRecord::Migration
 
     execute <<-SQL
       CREATE TABLE `requests` (
-        `requester_email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-        `status` int(11) DEFAULT NULL,
+        `requester_username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+        `status` tinyint(1) DEFAULT NULL,
         `offer_datetime` datetime NOT NULL DEFAULT NOW(),
         `offer_car_license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         `created_at` datetime NOT NULL,
         `updated_at` datetime NOT NULL,
-        PRIMARY KEY (`requester_email`, `offer_datetime`, `offer_car_license_plate_number`),
-        FOREIGN KEY (`requester_email`) REFERENCES `users`(`email`)
+        PRIMARY KEY (`requester_username`, `offer_datetime`, `offer_car_license_plate_number`),
+        FOREIGN KEY (`requester_username`) REFERENCES `users`(`username`)
         ON DELETE CASCADE ON UPDATE CASCADE,
         FOREIGN KEY (`offer_car_license_plate_number`)
         REFERENCES `offers`(`car_license_plate_number`)

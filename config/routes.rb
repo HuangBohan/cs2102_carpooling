@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :requests
+  resources :requests, :requirements => {:id => /.*/}  do
+    member do
+      post :approve
+    end
+  end
   resources :offers do
     member do
-      post :request, to: 'offers#request_offer'
+      post ':request', to: 'offers#request_offer'
     end
   end
   resources :cars

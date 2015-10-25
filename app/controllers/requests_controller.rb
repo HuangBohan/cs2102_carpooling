@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_request, only: [:show, :edit, :update, :destroy, :approve]
 
   # GET /requests
   # GET /requests.json
@@ -15,7 +15,7 @@ class RequestsController < ApplicationController
   # GET /requests/new
   def new
     @request = Request.new
-    @request.requester_email = current_user.email
+    @request.requester_username = current_user.username
   end
 
   # GET /requests/1/edit
@@ -62,11 +62,15 @@ class RequestsController < ApplicationController
     end
   end
 
+  def approve
+    @request.update_attribute(status: true)
+    redirect_to offers_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
-      request_params = (params[:id] + '.' + params[:format]).split(',')
-      @request = Request.find(params[:id] + '.' + params[:format])
+      @request = Request.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

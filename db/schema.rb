@@ -14,17 +14,17 @@
 ActiveRecord::Schema.define(version: 20150920061501) do
 
   create_table "cars", primary_key: "license_plate_number", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.integer  "seats",       limit: 4
-    t.string   "owner_email", limit: 255, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "name",           limit: 255
+    t.integer  "seats",          limit: 4
+    t.string   "owner_username", limit: 255, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "cars", ["owner_email"], name: "owner_email", using: :btree
+  add_index "cars", ["owner_username"], name: "owner_username", using: :btree
 
   create_table "offers", id: false, force: :cascade do |t|
-    t.datetime "date_time",                            null: false
+    t.datetime "datetime",                             null: false
     t.string   "pickUpPoint",              limit: 255
     t.string   "dropOffPoint",             limit: 255
     t.integer  "vacancies",                limit: 4
@@ -36,19 +36,18 @@ ActiveRecord::Schema.define(version: 20150920061501) do
   add_index "offers", ["car_license_plate_number"], name: "index_offers_on_car_license_plate_number", using: :btree
 
   create_table "requests", id: false, force: :cascade do |t|
-    t.string   "requester_email",                limit: 255, null: false
-    t.integer  "status",                         limit: 4
-    t.datetime "offer_date_time",                            null: false
+    t.string   "requester_username",             limit: 255, null: false
+    t.boolean  "status",                         limit: 1
+    t.datetime "offer_datetime",                             null: false
     t.string   "offer_car_license_plate_number", limit: 255, null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
   end
 
   add_index "requests", ["offer_car_license_plate_number"], name: "offer_car_license_plate_number", using: :btree
-  add_index "requests", ["offer_date_time", "offer_car_license_plate_number"], name: "index_requests_on_offer_details", using: :btree
+  add_index "requests", ["offer_datetime", "offer_car_license_plate_number"], name: "index_requests_on_offer_details", using: :btree
 
-  create_table "users", primary_key: "email", force: :cascade do |t|
-    t.string   "name",                   limit: 255
+  create_table "users", primary_key: "username", force: :cascade do |t|
     t.boolean  "isAdmin",                limit: 1
     t.integer  "credits",                limit: 4
     t.datetime "created_at",                                      null: false
@@ -64,11 +63,11 @@ ActiveRecord::Schema.define(version: 20150920061501) do
     t.string   "last_sign_in_ip",        limit: 255
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
-  add_foreign_key "cars", "users", column: "owner_email", primary_key: "email", name: "cars_ibfk_1", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "cars", "users", column: "owner_username", primary_key: "username", name: "cars_ibfk_1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "offers", "cars", column: "car_license_plate_number", primary_key: "license_plate_number", name: "offers_ibfk_1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "requests", "offers", column: "offer_car_license_plate_number", primary_key: "car_license_plate_number", name: "requests_ibfk_2", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "requests", "users", column: "requester_email", primary_key: "email", name: "requests_ibfk_1", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "requests", "users", column: "requester_username", primary_key: "username", name: "requests_ibfk_1", on_update: :cascade, on_delete: :cascade
 end
