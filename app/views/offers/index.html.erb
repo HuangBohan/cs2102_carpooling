@@ -10,6 +10,7 @@
       <th>Drop off point</th>
       <th>Vacancies</th>
       <th>Car</th>
+      <th>Request</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,6 +23,13 @@
         <td><%= offer.dropOffPoint %></td>
         <td><%= offer.vacancies %></td>
         <td><%= offer.car.name %></td>
+        <% requests = Request.where(offer: offer)%>
+        <td id="<%= offer.hash %>">
+            <% requests.each do |request| %>
+                <%= render partial: 'offers/request', locals: { request: request } %>
+            <% end %>
+            <li"><%= link_to 'Request now', request_offer_path(offer), remote: true, method: :post %></li>
+        </td>
         <td><%= link_to 'Show', offer %></td>
         <td><%= link_to 'Edit', edit_offer_path(offer) %></td>
         <td><%= link_to 'Destroy', offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>

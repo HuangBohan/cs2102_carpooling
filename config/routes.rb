@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :requests
-  resources :offers
+  resources :offers do
+    member do
+      post :request, to: 'offers#request_offer'
+    end
+  end
   resources :cars
   resources :users
   # The priority is based upon order of creation: first created -> highest priority.

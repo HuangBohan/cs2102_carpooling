@@ -1,5 +1,5 @@
 class OffersController < ApplicationController
-  before_action :set_offer, only: [:show, :edit, :update, :destroy]
+  before_action :set_offer, only: [:show, :edit, :update, :destroy, :request_offer]
 
   # GET /offers
   # GET /offers.json
@@ -59,6 +59,15 @@ class OffersController < ApplicationController
       format.html { redirect_to offers_url, notice: 'Offer was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def request_offer
+    @request = Request.new
+    @request.requester_email = current_user.email
+    @request.offer_date_time = @offer.date_time
+    @request.offer_car_license_plate_number = @offer.car_license_plate_number
+    @request.save
+    respond_to :js
   end
 
   private

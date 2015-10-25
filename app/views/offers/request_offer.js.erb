@@ -1,0 +1,1 @@
+$('td#<%= @request.offer.hash %>').prepend('<%= j(render partial: "offers/request", locals: { request: @request } ) %>');
