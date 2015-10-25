@@ -14,6 +14,7 @@ user = User.create(
 
 car = Car.create(
   owner: user,
+  name: 'Batman Car',
   license_plate_number: 'ZSDFADSFAS',
   seats: 11
 )

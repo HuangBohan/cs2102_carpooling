@@ -15,5 +15,7 @@
   <%= @request.offer %>
 </p>
 
+<% if @request.offer.car.owner == current_user %>
 <%= link_to 'Approve', approve_request_path(@request), method: :post %> |
-<%= link_to 'Back', requests_path %>
+<% end %>
+<%= link_to 'Back', offers_path %>
