@@ -24,12 +24,17 @@
         <td><%= offer.vacancies %></td>
         <td><%= offer.car.name %></td>
         <% requests = Request.where(offer: offer)%>
-        <td id="<%= offer.hash %>">
-            <% requests.each do |request| %>
-                <%= render partial: 'offers/request', locals: { request: request } %>
-            <% end %>
-            <li"><%= link_to 'Request now', request_offer_path(offer), remote: true, method: :post %></li>
-        </td>
+        <% offer_taken = Request.where(offer: offer, status: true) %>
+        <% if offer_taken %>
+            <td>Taken</td>
+        <% else %>
+            <td id="<%= offer.hash %>">
+                <% requests.each do |request| %>
+                    <%= render partial: 'offers/request', locals: { request: request } %>
+                <% end %>
+                <li"><%= link_to 'Request now', request_offer_path(offer), remote: true, method: :post %></li>
+            </td>
+        <% end %>
         <td><%= link_to 'Show', offer %></td>
         <td><%= link_to 'Edit', edit_offer_path(offer) %></td>
         <td><%= link_to 'Destroy', offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
