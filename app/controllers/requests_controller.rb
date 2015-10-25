@@ -63,7 +63,11 @@ class RequestsController < ApplicationController
   end
 
   def approve
-    @request.update_attribute(:status, true)
+    User.transaction do
+      @request.update_attribute(:status, true)
+      @request.offer.car.owner.update_attribute(:credits, @request.offer.car.owner.credits + @request.offer.cost)
+      @request.requester.update_attribute(:credits, @request.requester.credits - @request.offer.cost)
+    end
     redirect_to offers_path
   end
 

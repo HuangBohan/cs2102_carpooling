@@ -9,6 +9,7 @@
       <th>Pick up point</th>
       <th>Drop off point</th>
       <th>Vacancies</th>
+      <th>Cost</th>
       <th>Car</th>
       <th>Requests</th>
       <th colspan="3"></th>
@@ -22,9 +23,10 @@
         <td><%= offer.pickUpPoint %></td>
         <td><%= offer.dropOffPoint %></td>
         <td><%= offer.vacancies %></td>
+        <td><%= offer.cost %></td>
         <td><%= offer.car.name %></td>
         <% requests = Request.where(offer: offer)%>
-        <% offer_taken = Request.where(offer: offer, status: true) %>
+        <% offer_taken = Request.where(offer: offer, status: true).present? %>
         <% if offer_taken %>
             <td>Taken</td>
         <% else %>

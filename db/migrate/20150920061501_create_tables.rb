@@ -42,6 +42,7 @@ class CreateTables < ActiveRecord::Migration
         `datetime` datetime NOT NULL DEFAULT NOW(),
         `pickUpPoint` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
         `dropOffPoint` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+        `cost` int(11) DEFAULT 0,
         `vacancies` int(11) DEFAULT NULL,
         `car_license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
         `created_at` datetime NOT NULL,

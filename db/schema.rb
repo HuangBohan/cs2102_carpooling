@@ -24,13 +24,14 @@ ActiveRecord::Schema.define(version: 20150920061501) do
   add_index "cars", ["owner_username"], name: "owner_username", using: :btree
 
   create_table "offers", id: false, force: :cascade do |t|
-    t.datetime "datetime",                             null: false
+    t.datetime "datetime",                                         null: false
     t.string   "pickUpPoint",              limit: 255
     t.string   "dropOffPoint",             limit: 255
+    t.integer  "cost",                     limit: 4,   default: 0
     t.integer  "vacancies",                limit: 4
-    t.string   "car_license_plate_number", limit: 255, null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "car_license_plate_number", limit: 255,             null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
   add_index "offers", ["car_license_plate_number"], name: "index_offers_on_car_license_plate_number", using: :btree
@@ -49,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150920061501) do
 
   create_table "users", primary_key: "username", force: :cascade do |t|
     t.boolean  "isAdmin",                limit: 1
-    t.integer  "credits",                limit: 4
+    t.integer  "credits",                limit: 4,   default: 50
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false

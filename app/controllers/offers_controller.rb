@@ -79,6 +79,6 @@ class OffersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def offer_params
       params.require(:offer).permit(:datetime,
-                                    :pickUpPoint, :dropOffPoint, :vacancies, :car_license_plate_number)
+                                    :pickUpPoint, :dropOffPoint, :vacancies, :car_license_plate_number, :cost)
     end
 end
