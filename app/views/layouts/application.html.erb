@@ -9,6 +9,31 @@
 <body>
 
 <div class="container">
+      <nav class="panel navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">Carpooling</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li>
+                <%= link_to 'Users', users_path %>
+              </li>
+              <li>
+                <%= link_to 'Cars', cars_path %>
+              </li>
+              <li>
+                <%= link_to 'Offers', offers_path %>
+              </li>
+            </ul>
+
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
     <div class="panel">
       <div class="panel-body">
         <%= yield %>
