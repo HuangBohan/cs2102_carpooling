@@ -4,7 +4,7 @@ class OffersController < ApplicationController
   # GET /offers
   # GET /offers.json
   def index
-    @offers = Offer.get_all_offers
+    @offers = Offer.search_offers(params[:search])
   end
 
   # GET /offers/1

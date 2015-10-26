@@ -25,6 +25,17 @@ class Offer < ActiveRecord::Base
     Offer.find_by_sql(sql)
   end
 
+  def self.search_offers(keyword)
+    sql = "SELECT * FROM offers WHERE "\
+      "car_license_plate_number LIKE '%#{keyword}%' "\
+      "OR datetime LIKE '%#{keyword}%' "\
+      "OR pickUpPoint LIKE '%#{keyword}%' "\
+      "OR dropOffPoint LIKE '%#{keyword}%' "\
+      "OR vacancies LIKE '%#{keyword}%' "\
+      "OR cost LIKE '%#{keyword}%'"
+    Offer.find_by_sql(sql)
+  end
+
   def self.new_offer(params)
     car_license_plate_number = params[:car_license_plate_number]
     datetime = params[:datetime]
