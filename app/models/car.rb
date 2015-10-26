@@ -20,16 +20,12 @@ class Car < ActiveRecord::Base
   end
 
   def self.all_cars_search(keyword)
-    if keyword.blank?
-      get_all_cars
-    else
-      sql = "SELECT * FROM cars WHERE "\
-        "license_plate_number LIKE '%#{keyword}%'"\
-        "OR name LIKE '%#{keyword}%'"\
-        "OR seats LIKE '%#{keyword}%'"\
-        "OR owner_username LIKE '%#{keyword}%'"
-      Car.find_by_sql(sql)
-    end
+    sql = "SELECT * FROM cars WHERE "\
+      "license_plate_number LIKE '%#{keyword}%'"\
+      "OR name LIKE '%#{keyword}%'"\
+      "OR seats LIKE '%#{keyword}%'"\
+      "OR owner_username LIKE '%#{keyword}%'"
+    Car.find_by_sql(sql)
   end
 
   def self.get_user_cars(username)
@@ -38,15 +34,11 @@ class Car < ActiveRecord::Base
   end
 
   def self.user_cars_search(username, keyword)
-    if keyword.blank?
-      get_user_cars(username)
-    else
-      sql = "SELECT * FROM cars WHERE owner_username='#{username}'"\
-        "AND (license_plate_number LIKE '%#{keyword}%'"\
-        "OR name LIKE '%#{keyword}%'"\
-        "OR seats LIKE '%#{keyword}%')"
-      Car.find_by_sql(sql)
-    end
+    sql = "SELECT * FROM cars WHERE owner_username='#{username}'"\
+      "AND (license_plate_number LIKE '%#{keyword}%'"\
+      "OR name LIKE '%#{keyword}%'"\
+      "OR seats LIKE '%#{keyword}%')"
+    Car.find_by_sql(sql)
   end
 
   def self.new_car(params)
