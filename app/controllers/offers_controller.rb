@@ -25,9 +25,11 @@ class OffersController < ApplicationController
   # POST /offers.json
   def create
     ids = Offer.new_offer(offer_params)
-    @offer = Offer.get_offer(ids[0], ids[1])
+    @offer = Offer.get_offer(ids[0], ids[1]) if ids
+    #HACK
+    @offer = Offer.create(offer_params) unless ids
     respond_to do |format|
-      if @offer.save
+      if ids
         format.html { redirect_to @offer, notice: 'Offer was successfully created.' }
         format.json { render :show, status: :created, location: @offer }
       else
@@ -40,8 +42,10 @@ class OffersController < ApplicationController
   # PATCH/PUT /offers/1
   # PATCH/PUT /offers/1.json
   def update
+    ids = Offer.update_offer(offer_params, @paramss[0], @paramss[1])
+    @offer.update(offer_params) unless ids
     respond_to do |format|
-      if Offer.update_offer(offer_params, @paramss[0], @paramss[1])
+      if ids
         format.html { redirect_to @offer, notice: 'Offer was successfully updated.' }
         format.json { render :show, status: :ok, location: @offer }
       else

@@ -2,11 +2,13 @@ class Offer < ActiveRecord::Base
   self.primary_keys = :datetime, :car_license_plate_number
   belongs_to :car, foreign_key: :car_license_plate_number
   has_many :requests, dependent: :destroy
-
+  validates :datetime, presence: true
+  validates :car_license_plate_number, presence: true
+  validates :cost, presence: true
   validate :valid_number_of_vacancies
 
   def valid_number_of_vacancies
-    return if vacancies > 0 && vacancies < car.seats
+    return if vacancies.present? && vacancies > 0 && vacancies < car.seats
     errors.add(:vacancies, 'must be within the number of seats in the car')
   end
 
@@ -45,9 +47,10 @@ class Offer < ActiveRecord::Base
     cost = params[:cost].to_i
 
     car = Car.get_car(car_license_plate_number)
-    raise ActiveRecord::ActiveRecordError unless car.present?
-    raise ActiveRecord::ActiveRecordError unless vacancies > 0 && vacancies < car.seats
-    raise ActiveRecord::ActiveRecordError if cost < 0
+    return false unless datetime.present? && car_license_plate_number.present?
+    return false unless car.present?
+    return false unless vacancies.present? && vacancies > 0 && vacancies < car.seats
+    return false if cost.blank? || cost < 0
 
     sql = "INSERT INTO offers "\
       "(car_license_plate_number, datetime, pickUpPoint, dropOffPoint, vacancies, cost) "\
@@ -64,8 +67,10 @@ class Offer < ActiveRecord::Base
     cost = params[:cost].to_i
 
     car = Car.get_car(car_license_plate_number)
-    raise ActiveRecord::ActiveRecordError unless vacancies > 0 && vacancies < car.seats
-    raise ActiveRecord::ActiveRecordError if cost < 0
+    return false unless datetime.present? && car_license_plate_number.present?
+    return false unless car.present?
+    return false unless vacancies.present? && vacancies > 0 && vacancies < car.seats
+    return false if cost.blank? || cost < 0
 
     sql = "UPDATE offers "\
       "SET pickUpPoint='#{pickUpPoint}', dropOffPoint='#{dropOffPoint}', "\
