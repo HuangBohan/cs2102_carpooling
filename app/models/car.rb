@@ -3,10 +3,11 @@ class Car < ActiveRecord::Base
   belongs_to :owner, class_name: :User, foreign_key: :owner_username
   has_many :offers, dependent: :destroy
   validate :at_least_one_seat
+  validates :license_plate_number, presence: true
 
   def at_least_one_seat
-    return if seats > 0
-    errors.add(:offer, 'must have at least one seat')
+    return if seats.present? && seats > 0
+    errors.add(:seats, 'must have at least one seat')
   end
 
   def self.get_car(license_plate_number)
@@ -47,7 +48,7 @@ class Car < ActiveRecord::Base
     owner_username = params[:owner_username]
     seats = params[:seats].to_i
 
-    raise ActiveRecord::ActiveRecordError if seats <= 0
+    return false if seats.blank? || seats <= 0 || license_plate_number.blank?
 
     sql = "INSERT INTO cars "\
       "(owner_username, name, license_plate_number, seats) "\
@@ -61,7 +62,7 @@ class Car < ActiveRecord::Base
     name = params[:name]
     seats = params[:seats].to_i
 
-    raise ActiveRecord::ActiveRecordError if seats <= 0
+    return false if seats <= 0
 
     sql = "UPDATE cars "\
       "SET name='#{name}', seats='#{seats}' "\

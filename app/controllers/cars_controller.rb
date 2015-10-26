@@ -29,8 +29,9 @@ class CarsController < ApplicationController
   # POST /cars.json
   def create
     new_car = Car.new_car(car_params)
-    @car = Car.get_car(new_car)
-
+    car = Car.get_car(new_car)
+    # HACK
+    @car = Car.create(car_params) unless new_car
     respond_to do |format|
       if new_car
         format.html { redirect_to @car, notice: 'Car was successfully created.' }
@@ -45,8 +46,11 @@ class CarsController < ApplicationController
   # PATCH/PUT /cars/1
   # PATCH/PUT /cars/1.json
   def update
+    update_car = Car.update_car(car_params, params[:id])
+    # HACK
+    @car.update(car_params) unless update_car
     respond_to do |format|
-      if Car.update_car(car_params, params[:id])
+      if update_car
         format.html { redirect_to @car, notice: 'Car was successfully updated.' }
         format.json { render :show, status: :ok, location: @car }
       else
