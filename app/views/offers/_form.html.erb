@@ -10,11 +10,15 @@
       </ul>
     </div>
   <% end %>
-  <%= f.input :datetime %>
+  <% if @offer.new_record? %>
+    <%= f.input :datetime %>
+  <% end %>
   <%= f.input :pickUpPoint %>
   <%= f.input :dropOffPoint %>
   <%= f.input :cost %>
   <%= f.input :vacancies %>
-  <%= f.association :car, collection: Car.where(owner_username: current_user.username) %>
+  <% if @offer.new_record? %>
+    <%= f.association :car, collection: Car.where(owner_username: current_user.username) %>
+  <% end %>
   <%= f.submit %>
 <% end %>

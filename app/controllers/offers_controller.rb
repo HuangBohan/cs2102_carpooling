@@ -4,7 +4,7 @@ class OffersController < ApplicationController
   # GET /offers
   # GET /offers.json
   def index
-    @offers = Offer.all
+    @offers = Offer.get_all_offers
   end
 
   # GET /offers/1
@@ -24,8 +24,8 @@ class OffersController < ApplicationController
   # POST /offers
   # POST /offers.json
   def create
-    @offer = Offer.new(offer_params)
-
+    ids = Offer.new_offer(offer_params)
+    @offer = Offer.get_offer(ids[0], ids[1])
     respond_to do |format|
       if @offer.save
         format.html { redirect_to @offer, notice: 'Offer was successfully created.' }
@@ -41,7 +41,7 @@ class OffersController < ApplicationController
   # PATCH/PUT /offers/1.json
   def update
     respond_to do |format|
-      if @offer.update(offer_params)
+      if Offer.update_offer(offer_params, @paramss[0], @paramss[1])
         format.html { redirect_to @offer, notice: 'Offer was successfully updated.' }
         format.json { render :show, status: :ok, location: @offer }
       else
@@ -54,7 +54,7 @@ class OffersController < ApplicationController
   # DELETE /offers/1
   # DELETE /offers/1.json
   def destroy
-    @offer.destroy
+    Offer.destroy_offer(@paramss[0], @paramss[1])
     respond_to do |format|
       format.html { redirect_to offers_url, notice: 'Offer was successfully destroyed.' }
       format.json { head :no_content }
@@ -73,7 +73,8 @@ class OffersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_offer
-      @offer = Offer.find(params[:id])
+      @paramss = params[:id].split(',')
+      @offer = Offer.get_offer(@paramss[0], @paramss[1])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

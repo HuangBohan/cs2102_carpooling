@@ -5,7 +5,7 @@ class CarsController < ApplicationController
   # GET /cars.json
   def index
     if current_user.isAdmin?
-      @cars = Car.all
+      @cars = Car.get_all_cars
     else
       @cars = Car.get_user_cars(current_user.username)
     end
@@ -32,7 +32,7 @@ class CarsController < ApplicationController
     @car = Car.get_car(new_car)
 
     respond_to do |format|
-      if @car.save
+      if new_car
         format.html { redirect_to @car, notice: 'Car was successfully created.' }
         format.json { render :show, status: :created, location: @car }
       else

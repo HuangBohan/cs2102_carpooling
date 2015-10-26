@@ -26,9 +26,9 @@
         <td><%= offer.cost %></td>
         <td><%= offer.car.name %></td>
         <% requests = Request.where(offer: offer)%>
-        <% offer_taken = Request.where(offer: offer, status: true).present? %>
-        <% if offer_taken %>
-            <td>Taken</td>
+        <% offer_taken = Request.where(offer: offer, status: true).first %>
+        <% if offer_taken.present? %>
+            <td>Taken by <%= offer_taken.requester.username %></td>
         <% else %>
             <td id="<%= offer.hash %>">
                 <% requests.each do |request| %>

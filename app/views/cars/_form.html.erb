@@ -10,7 +10,9 @@
       </ul>
     </div>
   <% end %>
-  <%= f.input :license_plate_number %>
+  <% if @car.new_record? %>
+    <%= f.input :license_plate_number %>
+  <% end %>
   <%= f.input :name %>
   <%= f.input :seats %>
   <%= f.submit %>

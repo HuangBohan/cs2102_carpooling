@@ -14,6 +14,11 @@ class Car < ActiveRecord::Base
     Car.find_by_sql(sql).first
   end
 
+  def self.get_all_cars
+    sql = "SELECT * FROM cars"
+    Car.find_by_sql(sql)
+  end
+
   def self.get_user_cars(username)
     sql = "SELECT * FROM cars WHERE owner_username='#{username}'"
     Car.find_by_sql(sql)
@@ -39,7 +44,7 @@ class Car < ActiveRecord::Base
     name = params[:name]
     seats = params[:seats].to_i
 
-    return false if seats <= 0
+    raise ActiveRecord::ActiveRecordError if seats <= 0
 
     sql = "UPDATE cars "\
       "SET name='#{name}', seats='#{seats}' "\
