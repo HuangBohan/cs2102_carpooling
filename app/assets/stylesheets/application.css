@@ -13,3 +13,10 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+    background: aliceblue;
+}
+.panel {
+    margin-top: 2em;
+}
