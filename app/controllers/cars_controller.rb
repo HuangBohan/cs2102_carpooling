@@ -5,9 +5,9 @@ class CarsController < ApplicationController
   # GET /cars.json
   def index
     if current_user.isAdmin?
-      @cars = Car.get_all_cars
+      @cars = Car.all_cars_search(params[:search])
     else
-      @cars = Car.get_user_cars(current_user.username)
+      @cars = Car.user_cars_search(current_user.username, params[:search])
     end
   end
 
