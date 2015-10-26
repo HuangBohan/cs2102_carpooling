@@ -38,7 +38,7 @@ class Offer < ActiveRecord::Base
 
   def self.new_offer(params)
     car_license_plate_number = params[:car_license_plate_number]
-    datetime = params[:datetime]
+    datetime = params["datetime(1i)"] + "-" + params["datetime(2i)"] + "-" + params["datetime(3i)"] + "-" + params["datetime(4i)"]+":"+params["datetime(5i)"]
     pickUpPoint = params[:pickUpPoint]
     dropOffPoint = params[:dropOffPoint]
     vacancies = params[:vacancies].to_i
@@ -54,7 +54,7 @@ class Offer < ActiveRecord::Base
       "VALUES ('#{car_license_plate_number}', '#{datetime}', '#{pickUpPoint}', '#{dropOffPoint}', '#{vacancies}', '#{cost}');"
     ActiveRecord::Base.connection.execute sql
 
-    [datetime, license_plate_number]
+    [datetime, car_license_plate_number]
   end
 
   def self.update_offer(params, datetime, car_license_plate_number)
@@ -76,7 +76,7 @@ class Offer < ActiveRecord::Base
     true
   end
 
-  def self.destroy_offer(datetime, license_plate_number)
+  def self.destroy_offer(datetime, car_license_plate_number)
     sql = "DELETE FROM offers "\
       "WHERE datetime='#{datetime}' AND car_license_plate_number='#{car_license_plate_number}';"
     ActiveRecord::Base.connection.execute sql
