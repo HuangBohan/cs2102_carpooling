@@ -27,4 +27,9 @@ class User < ActiveRecord::Base
     sql = "SELECT * FROM users WHERE username='#{username}'"
     User.find_by_sql(sql)
   end
+
+  def self.search_user(username)
+    sql = "SELECT * FROM users WHERE username LIKE '%#{username}%'"
+    User.find_by_sql(sql)
+  end
 end
