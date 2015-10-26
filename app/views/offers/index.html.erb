@@ -31,7 +31,7 @@
         <td><%= offer.dropOffPoint %></td>
         <td><%= offer.vacancies %></td>
         <td><%= offer.cost %></td>
-        <td><%= offer.car.name %></td>
+        <td><%= link_to offer.car.name, car_path(offer.car) %></td>
         <% requests = Request.where(offer: offer)%>
         <% offer_taken = Request.where(offer: offer, status: true).first %>
         <% if offer_taken.present? %>
