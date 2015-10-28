@@ -10,6 +10,19 @@ class Request < ActiveRecord::Base
     Request.find_by_sql(sql).first
   end
 
+  def self.get_offer_requests(offer_datetime, offer_car_license_plate_number)
+    sql = "SELECT * FROM requests WHERE offer_datetime='#{offer_datetime}' AND "\
+      "offer_car_license_plate_number='#{offer_car_license_plate_number}';"
+    Request.find_by_sql(sql)
+  end
+
+  def self.get_taken_offer_request(offer_datetime, offer_car_license_plate_number)
+    sql = "SELECT * FROM requests WHERE offer_datetime='#{offer_datetime}' AND "\
+      "offer_car_license_plate_number='#{offer_car_license_plate_number}' AND status = 1;"
+    Request.find_by_sql(sql).first
+  end
+
+
   def self.new_request(params)
     offer_car_license_plate_number = params[:offer_car_license_plate_number]
     offer_datetime = params[:offer_datetime]
