@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   resources :reports, only: [] do
     collection do
       get 'user_offers', to: 'reports#user_offers', as: 'user_offers'
+      get 'popular_pickup', to: 'reports#popular_pickup', as: 'popular_pickup'
+      get 'popular_dropoff', to: 'reports#popular_dropoff', as: 'popular_dropoff'
     end
   end
 

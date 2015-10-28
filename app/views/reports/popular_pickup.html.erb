@@ -1,0 +1,21 @@
+<h1>Popular Pickup Points</h1>
+
+<table class="table table-striped datatable">
+  <thead>
+  <tr>
+    <th>Pickup Point</th>
+    <th>Number of offers</th>
+    <th>Number of requests</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @points.each do |point| %>
+      <tr>
+        <td><%= point[0] %></td>
+        <td><%= point[1] %></td>
+        <td><%= point[2] %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

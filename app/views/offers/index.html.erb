@@ -41,7 +41,9 @@
                 <% requests.each do |request| %>
                     <%= render partial: 'offers/request', locals: { request: request } %>
                 <% end %>
-                <li"><%= link_to 'Request now', request_offer_path(offer), remote: true, method: :post %></li>
+                <% unless Request.get_request(offer.datetime, offer.car_license_plate_number, current_user.username) %>
+                   <li"><%= link_to 'Request now', request_offer_path(offer), remote: true, method: :post %></li>
+                <% end %>
             </td>
         <% end %>
         <% if offer.car.owner == current_user %>
