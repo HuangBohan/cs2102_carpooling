@@ -20,12 +20,13 @@ class Car < ActiveRecord::Base
     Car.find_by_sql(sql)
   end
 
-  def self.all_cars_search(keyword)
+  def self.search_all_cars(keyword, seats_lower_limit, seats_upper_limit)
     sql = "SELECT * FROM cars WHERE "\
-      "license_plate_number LIKE '%#{keyword}%'"\
+      "(license_plate_number LIKE '%#{keyword}%'"\
       "OR name LIKE '%#{keyword}%'"\
-      "OR seats LIKE '%#{keyword}%'"\
-      "OR owner_username LIKE '%#{keyword}%'"
+      "OR owner_username LIKE '%#{keyword}%')"
+    sql = sql + "AND seats >= '#{seats_lower_limit}'" if !seats_lower_limit.blank?
+    sql = sql + "AND seats <= '#{seats_upper_limit}'" if !seats_upper_limit.blank?
     Car.find_by_sql(sql)
   end
 
@@ -34,7 +35,7 @@ class Car < ActiveRecord::Base
     Car.find_by_sql(sql)
   end
 
-  def self.user_cars_search(username, keyword)
+  def self.search_user_cars(username, keyword)
     sql = "SELECT * FROM cars WHERE owner_username='#{username}'"\
       "AND (license_plate_number LIKE '%#{keyword}%'"\
       "OR name LIKE '%#{keyword}%'"\

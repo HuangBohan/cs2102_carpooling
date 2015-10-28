@@ -4,9 +4,16 @@
 
 <%= form_tag cars_path, :method => 'get' do %>
   <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
+    <%= label_tag(:keyword, "Keyword:") %>
+    <%= text_field_tag :keyword, params[:keyword], size: 20 %>  
   </p>
+  <p>
+    <%= label_tag(:seats_lower_limit, "Seats:") %>
+    <%= text_field_tag :seats_lower_limit, params[:seats_lower_limit], size: 5 %>
+    <%= label_tag(:seats_upper_limit, "  -  ") %>
+    <%= text_field_tag :seats_upper_limit, params[:seats_upper_limit], size: 5 %>  
+  </p>
+  <%= submit_tag "Search", :name => nil %>
 <% end %>
 
 <table class="table table-striped">
