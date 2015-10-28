@@ -1,0 +1,27 @@
+<h1>User Car Sharing Report</h1>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th>Number of cars posted</th>
+    <th>Number of offers posted</th>
+    <th>Number of requests for offers</th>
+    <th>Offer/Car Percentage</th>
+    <th>Request/Car Percentage</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user[0] %></td>
+        <td><%= user[1] %></td>
+        <td><%= user[2] %></td>
+        <td><%= user[3] %></td>
+        <td><%= user[4] %></td>
+        <td><%= user[5] %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
