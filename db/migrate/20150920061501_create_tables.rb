@@ -54,7 +54,8 @@ class CreateTables < ActiveRecord::Migration
         `status` tinyint(1) DEFAULT NULL,
         `offer_datetime` datetime NOT NULL DEFAULT NOW(),
         `offer_car_license_plate_number` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-        PRIMARY KEY (`requester_username`, `offer_datetime`, `offer_car_license_plate_number`),
+        `request_datetime` datetime NOT NULL DEFAULT NOW(),
+        PRIMARY KEY (`requester_username`, `offer_datetime`, `offer_car_license_plate_number`, `request_datetime`),
         FOREIGN KEY (`requester_username`) REFERENCES `users`(`username`)
         ON DELETE CASCADE ON UPDATE CASCADE,
         FOREIGN KEY (`offer_car_license_plate_number`)

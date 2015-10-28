@@ -90,7 +90,7 @@ class Offer < ActiveRecord::Base
 
   def self.popular_pickup_points
     sql = 'SELECT o.pickUpPoint, COUNT(DISTINCT o.datetime, o.car_license_plate_number) AS num_offers, ' \
-      'COUNT(DISTINCT r.offer_datetime, r.offer_car_license_plate_number, r.requester_username) AS num_requests '\
+      'COUNT(DISTINCT r.offer_datetime, r.offer_car_license_plate_number, r.requester_username, r.request_datetime) AS num_requests '\
       'FROM offers o LEFT JOIN requests r ON r.offer_datetime = o.datetime AND '\
       'r.offer_car_license_plate_number = o.car_license_plate_number '\
       'GROUP BY o.pickUpPoint ORDER BY num_offers, num_requests DESC'
@@ -99,7 +99,7 @@ class Offer < ActiveRecord::Base
 
   def self.popular_dropoff_points
     sql = 'SELECT o.dropOffPoint, COUNT(DISTINCT o.datetime, o.car_license_plate_number) AS num_offers, ' \
-      'COUNT(DISTINCT r.offer_datetime, r.offer_car_license_plate_number, r.requester_username) AS num_requests '\
+      'COUNT(DISTINCT r.offer_datetime, r.offer_car_license_plate_number, r.requester_username, r.request_datetime) AS num_requests '\
       'FROM offers o LEFT JOIN requests r ON r.offer_datetime = o.datetime AND '\
       'r.offer_car_license_plate_number = o.car_license_plate_number '\
       'GROUP BY dropOffPoint ORDER BY num_offers, num_requests DESC'

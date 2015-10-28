@@ -1,2 +1,2 @@
-<% request_show = "Request by #{request.requester.username}" %>
+<% request_show = "Request by #{request.requester.username} at #{request.request_datetime}" %>
 <li><%= link_to request_show, request_path(request) %></li>

@@ -1,12 +1,13 @@
 class Request < ActiveRecord::Base
-  self.primary_keys = :offer_datetime, :offer_car_license_plate_number, :requester_username
+  self.primary_keys = :offer_datetime, :offer_car_license_plate_number, :requester_username, :request_datetime
   belongs_to :requester, class_name: :User, foreign_key: :requester_username
   belongs_to :offer, foreign_key: [:offer_datetime, :offer_car_license_plate_number]
 
-  def self.get_request(offer_datetime, offer_car_license_plate_number, requester_username)
+  def self.get_request(offer_datetime, offer_car_license_plate_number, requester_username, request_datetime)
     sql = "SELECT * FROM requests WHERE offer_datetime='#{offer_datetime}' AND "\
       "requester_username='#{requester_username}' AND "\
-      "offer_car_license_plate_number='#{offer_car_license_plate_number}';"
+      "offer_car_license_plate_number='#{offer_car_license_plate_number}' AND "\
+      "request_datetime = '#{request_datetime}';"
     Request.find_by_sql(sql).first
   end
 
@@ -27,6 +28,7 @@ class Request < ActiveRecord::Base
     offer_car_license_plate_number = params[:offer_car_license_plate_number]
     offer_datetime = params[:offer_datetime]
     requester_username = params[:requester_username]
+    request_datetime = params[:request_datetime]
 
     offer = Offer.get_offer(offer_datetime, offer_car_license_plate_number)
     return false unless offer.present?
@@ -34,14 +36,14 @@ class Request < ActiveRecord::Base
     return false unless requester.present?
 
     sql = "INSERT INTO requests "\
-      "(offer_car_license_plate_number, offer_datetime, requester_username) "\
-      "VALUES ('#{offer_car_license_plate_number}', '#{offer_datetime}', '#{requester_username}');"
+      "(offer_car_license_plate_number, offer_datetime, requester_username, request_datetime) "\
+      "VALUES ('#{offer_car_license_plate_number}', '#{offer_datetime}', '#{requester_username}', '#{request_datetime}');"
     ActiveRecord::Base.connection.execute sql
 
-    [offer_datetime, offer_car_license_plate_number, requester_username]
+    [offer_datetime, offer_car_license_plate_number, requester_username, request_datetime]
   end
 
-  def self.approve_request(offer_datetime, offer_car_license_plate_number, requester_username)
+  def self.approve_request(offer_datetime, offer_car_license_plate_number, requester_username, request_datetime)
     offer = Offer.get_offer(offer_datetime, offer_car_license_plate_number)
     return false unless offer.present?
     requester = User.get_user(requester_username)
@@ -53,7 +55,8 @@ class Request < ActiveRecord::Base
       "SET status=1 "\
       "WHERE offer_datetime='#{offer_datetime}' AND "\
       "requester_username='#{requester_username}' AND "\
-      "offer_car_license_plate_number='#{offer_car_license_plate_number}';"
+      "offer_car_license_plate_number='#{offer_car_license_plate_number}' AND "\
+      "request_datetime = '#{request_datetime}';"
     ActiveRecord::Base.connection.execute sql1
 
     sql2 = "UPDATE users "\

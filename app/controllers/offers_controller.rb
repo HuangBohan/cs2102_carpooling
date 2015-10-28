@@ -70,6 +70,7 @@ class OffersController < ApplicationController
     @request.requester_username = current_user.username
     @request.offer_datetime = @offer.datetime
     @request.offer_car_license_plate_number = @offer.car_license_plate_number
+    @request.request_datetime = Time.now
     @request.save
     respond_to :js
   end

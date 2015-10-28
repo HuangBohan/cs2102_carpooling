@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150920061501) do
     t.boolean  "status",                         limit: 1
     t.datetime "offer_datetime",                             null: false
     t.string   "offer_car_license_plate_number", limit: 255, null: false
+    t.datetime "request_datetime",                           null: false
   end
 
   add_index "requests", ["offer_car_license_plate_number"], name: "offer_car_license_plate_number", using: :btree
