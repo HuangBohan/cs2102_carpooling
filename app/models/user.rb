@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
       'CONCAT(ROUND(IF(COUNT(DISTINCT r.offer_datetime, r.offer_car_license_plate_number, r.requester_username)=0,0, '\
       '( COUNT(DISTINCT o.datetime, o.car_license_plate_number)/COUNT(DISTINCT c.license_plate_number) * 100 )),2),"%") '\
       'AS car_offered_percentage, CONCAT(ROUND(IF(COUNT(DISTINCT o.datetime, o.car_license_plate_number)=0, 0, '\
-      'COUNT(DISTINCT r.offer_datetime, r.offer_car_license_plate_number, r.requester_username)/COUNT(DISTINCT o.datetime, o.car_license_plate_number)), 2), "%") '\
+      'COUNT(DISTINCT r.offer_datetime, r.offer_car_license_plate_number, r.requester_username)/COUNT(DISTINCT o.datetime, o.car_license_plate_number)) * 100, 2), "%") '\
       'AS offers_requested_percentage FROM users u LEFT JOIN cars c on c.owner_username = u.username '\
       'LEFT JOIN offers o ON o.car_license_plate_number = c.license_plate_number LEFT JOIN requests r '\
       'ON r.offer_datetime = o.datetime AND r.offer_car_license_plate_number = o.car_license_plate_number GROUP BY u.username'
