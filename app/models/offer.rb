@@ -13,7 +13,7 @@ class Offer < ActiveRecord::Base
   end
 
   def to_sym
-    "#{license_plate_number} | #{datetime}"
+    "Offer for car license number #{car_license_plate_number} on date #{datetime}"
   end
 
   def self.get_offer(datetime, car_license_plate_number)

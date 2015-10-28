@@ -7,12 +7,12 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @request.status %>
+  <%= @request.status ? 'Approved' : 'Not Approved' %>
 </p>
 
 <p>
   <strong>Offer:</strong>
-  <%= @request.offer %>
+  <%= @request.offer.to_sym %>
 </p>
 
 <% if @request.offer.car.owner == current_user %>
