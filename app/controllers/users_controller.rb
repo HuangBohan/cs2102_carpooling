@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.search_user(params[:search])
+    @users = User.search_user(params[:username], params[:is_admin],
+      params[:credits_lower_limit], params[:credits_upper_limit])
   end
 
   # GET /users/1

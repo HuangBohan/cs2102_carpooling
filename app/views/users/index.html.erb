@@ -4,9 +4,20 @@
 
 <%= form_tag users_path, :method => 'get' do %>
   <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
+    <%= label_tag(:username, "Username:") %>
+    <%= text_field_tag :username, params[:username] %>
   </p>
+  <p>
+    <%= label_tag(:is_admin, "Admin:") %>
+    <%= check_box_tag :is_admin, params[:is_admin] %>
+  </p>
+  <p>
+    <%= label_tag(:credits_lower_limit, "Credits:") %>
+    <%= text_field_tag :credits_lower_limit, params[:credits_lower_limit], size: 5 %>
+    <%= label_tag(:credits_upper_limit, "  -  ") %>
+    <%= text_field_tag :credits_upper_limit, params[:credits_upper_limit], size: 5 %>  
+  </p>
+  <%= submit_tag "Search", :name => nil %>
 <% end %>
 
 <table class="table table-striped">

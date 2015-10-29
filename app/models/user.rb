@@ -28,8 +28,11 @@ class User < ActiveRecord::Base
     User.find_by_sql(sql)
   end
 
-  def self.search_user(username)
+  def self.search_user(username, is_admin, credits_lower_limit, credits_upper_limit)
     sql = "SELECT * FROM users WHERE username LIKE '%#{username}%'"
+    sql = sql + "AND isAdmin = 1" if is_admin == "on"
+    sql = sql + "AND credits >= '#{credits_lower_limit}'" if !credits_lower_limit.blank?
+    sql = sql + "AND credits <= '#{credits_upper_limit}'" if !credits_upper_limit.blank?
     User.find_by_sql(sql)
   end
 
