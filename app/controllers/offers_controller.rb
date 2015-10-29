@@ -4,7 +4,10 @@ class OffersController < ApplicationController
   # GET /offers
   # GET /offers.json
   def index
-    @offers = Offer.search_offers(params[:search])
+    @offers = Offer.search_offers(params[:keyword],
+      params[:pick_up_point], params[:drop_off_point],
+      params[:vancancy_lower_limit], params[:vancancy_upper_limit],
+      params[:cost_lower_limit], params[:cost_upper_limit])
   end
 
   # GET /offers/1

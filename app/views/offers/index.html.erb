@@ -4,9 +4,30 @@
 
 <%= form_tag offers_path, :method => 'get' do %>
   <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
+    <%= label_tag(:keyword, "Keyword:") %>
+    <%= text_field_tag :keyword, params[:keyword], size: 25 %>  
   </p>
+  <p>
+    <%= label_tag(:pick_up_point, "Pick up point:") %>
+    <%= text_field_tag :pick_up_point, params[:pick_up_point], size: 21 %>
+  </p>
+  <p>
+    <%= label_tag(:drop_off_point, "Drop off point:") %>
+    <%= text_field_tag :drop_off_point, params[:drop_off_point], size: 20 %>  
+  </p>
+  <p>
+    <%= label_tag(:vancancy_lower_limit, "Vancancies:") %>
+    <%= text_field_tag :vancancy_lower_limit, params[:vancancy_lower_limit], size: 5 %>
+    <%= label_tag(:vancancy_upper_limit, "  -  ") %>
+    <%= text_field_tag :vancancy_upper_limit, params[:vancancy_upper_limit], size: 5 %>  
+  </p>
+  <p>
+    <%= label_tag(:cost_lower_limit, "Cost:") %>
+    <%= text_field_tag :cost_lower_limit, params[:cost_lower_limit], size: 5 %>
+    <%= label_tag(:cost_upper_limit, "  -  ") %>
+    <%= text_field_tag :cost_upper_limit, params[:cost_upper_limit], size: 5 %>  
+  </p>
+  <%= submit_tag "Search", :name => nil %>
 <% end %>
 
 <table class="table table-striped datatable">
@@ -41,7 +62,7 @@
                 <% requests.each do |request| %>
                     <%= render partial: 'offers/request', locals: { request: request } %>
                 <% end %>
-                <li"><%= link_to 'Request now', request_offer_path(offer), remote: true, method: :post %></li>
+                <li><%= link_to 'Request now', request_offer_path(offer), remote: true, method: :post %></li>
             </td>
         <% end %>
         <% if offer.car.owner == current_user %>

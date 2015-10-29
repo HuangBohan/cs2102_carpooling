@@ -27,14 +27,20 @@ class Offer < ActiveRecord::Base
     Offer.find_by_sql(sql)
   end
 
-  def self.search_offers(keyword)
+  def self.search_offers(keyword, pick_up_point, drop_off_point, vancancy_lower_limit, vancancy_upper_limit, cost_lower_limit, cost_upper_limit)
     sql = "SELECT * FROM offers WHERE "\
-      "car_license_plate_number LIKE '%#{keyword}%' "\
+      "(car_license_plate_number LIKE '%#{keyword}%' "\
       "OR datetime LIKE '%#{keyword}%' "\
       "OR pickUpPoint LIKE '%#{keyword}%' "\
       "OR dropOffPoint LIKE '%#{keyword}%' "\
       "OR vacancies LIKE '%#{keyword}%' "\
-      "OR cost LIKE '%#{keyword}%'"
+      "OR cost LIKE '%#{keyword}%')"
+    sql = sql + "AND pickUpPoint LIKE '%#{pick_up_point}%'"
+    sql = sql + "AND dropOffPoint LIKE '%#{drop_off_point}%'"
+    sql = sql + "AND vacancies >= '#{vancancy_lower_limit}'" if !vancancy_lower_limit.blank?
+    sql = sql + "AND vacancies <= '#{vancancy_upper_limit}'" if !vancancy_upper_limit.blank?
+    sql = sql + "AND cost >= '#{cost_lower_limit}'" if !cost_lower_limit.blank?
+    sql = sql + "AND cost <= '#{cost_upper_limit}'" if !cost_upper_limit.blank?
     Offer.find_by_sql(sql)
   end
 
